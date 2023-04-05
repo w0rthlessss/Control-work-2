@@ -129,6 +129,7 @@
   <ItemGroup>
     <ClCompile Include="DataInput.cpp" />
     <ClCompile Include="GetInfo.cpp" />
+    <ClCompile Include="ModuleTests.cpp" />
     <ClCompile Include="Person.cpp" />
     <ClCompile Include="Start.cpp" />
     <ClCompile Include="Student.cpp" />
@@ -138,6 +139,7 @@
   <ItemGroup>
     <ClInclude Include="DataInput.h" />
     <ClInclude Include="GetInfo.h" />
+    <ClInclude Include="ModuleTests.h" />
     <ClInclude Include="Person.h" />
     <ClInclude Include="Student.h" />
     <ClInclude Include="Tasks.h" />
