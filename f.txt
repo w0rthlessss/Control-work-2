@@ -1,0 +1,42 @@
+All students we have data about:
+
+Information about student #1:
+Name: Ilya
+Surname: Ekkert
+Adress: Berlin
+University: ITMO
+Course: 1
+Group: 123
+
+Information about student #2:
+Name: Semen
+Surname: Petukhov
+Adress: Krasnoyarsk
+University: ITMO
+Course: 1
+Group: 234
+
+Information about student #3:
+Name: Alina
+Surname: Galkina
+Adress: Pervomayka
+University: SPBGTI
+Course: 1
+Group: 423
+
+Information about student #4:
+Name: Anastasia
+Surname: Runina
+Adress: Huevo-Kukuevo
+University: SPBGTI
+Course: 1
+Group: 423
+
+Information about student #5:
+Name: Ekaterina
+Surname: Mina
+Adress: Sochi
+University: SPBGTI
+Course: 1
+Group: 425
+
