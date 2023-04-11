@@ -1,6 +1,7 @@
 #include "UserInterface.h"
 #include "Tasks.h"
 #include "DataInput.h"
+#include "ModuleTests.h"
 
 void WorkWithConsole(vector<Student>& students, int& actionBottom)
 {
@@ -176,7 +177,7 @@ void StartProgram()
 			break;
 
 		case TopMenu::module:
-			//LaunchAllTests();
+			LaunchAllTests();
 			break;
 
 		case TopMenu::quit:
