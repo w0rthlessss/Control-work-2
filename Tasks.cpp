@@ -102,6 +102,7 @@ void FilterByGroup(int mode, ui numberOfStudents, vector<Student>& students)
 	Print(mode, filtered, line);
 }
 
+//вывод на консоль и в файл
 void Print(int mode, vector<Student>& filteredStudents, string line)
 {
 	fstream fout;
