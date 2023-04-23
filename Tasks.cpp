@@ -1,6 +1,7 @@
 #include "Tasks.h"
 #include <algorithm>
 
+//компаратор, задающий условия сортировки
 bool Comparator(Student x, Student y)
 {
 	if (x.GetUniversity() != y.GetUniversity()) return x.GetUniversity() < y.GetUniversity();
@@ -11,9 +12,17 @@ bool Comparator(Student x, Student y)
 	return x.GetGroup() < y.GetGroup();
 }
 
-void Sort(vector<Student>& students)
+//сортировка вектора
+void SortArray(vector<Student>& students)
 {
-	sort(students.begin(), students.end(), Comparator);
+	//sort(students.begin(), students.end(), Comparator);
+	sort(students.begin(), students.end(), [](Student x, Student y) ->bool {
+		if (x.GetUniversity() != y.GetUniversity()) return x.GetUniversity() < y.GetUniversity();
+		if (x.GetName() != y.GetName()) return x.GetName() < y.GetName();
+		if (x.GetSurname() != y.GetSurname()) return x.GetSurname() < y.GetSurname();
+		if (x.GetAdress() != y.GetAdress()) return x.GetAdress() < y.GetAdress();
+		if (x.GetCourse() != y.GetCourse()) return x.GetCourse() < y.GetCourse();
+		return x.GetGroup() < y.GetGroup(); });
 }
 
 //сравнение строк без учета регистра
@@ -33,35 +42,7 @@ bool Comparison(string university, string chosenUniversity)
 	}
 }
 
-void PrintAll(int mode, ui numberOfStudents, vector<Student>& students)
-{
-	fstream fout;
-	if (mode == TopMenu::console) {
-		cout << "All students we have data about:\n\n";
-		for (ui i = 0; i < numberOfStudents; i++) {
-			students[i].ShowInformation(i+1);
-		}
-
-		char ans = SaveResults(fout);
-
-		if (ans == 'y') {
-			fout << "All students we have data about:\n\n";
-			for (ui i = 0; i < numberOfStudents; i++) {
-				fout << students[i].GetAll(i + 1);
-			}
-		}
-		fout.close();
-	}
-	else {
-		string name = OpenFile(WorkWithFiles::output, fout);
-		fout << "All students we have data about:\n\n";
-		for (ui i = 0; i < numberOfStudents; i++) {
-			fout << students[i].GetAll(i + 1);
-		}
-		fout.close();
-	}
-}
-
+//фильтр студентов по университету
 void FilterByUniversity(int mode, ui numberOfStudents, vector<Student> &students)
 {
 	vector<Student> filtered;
@@ -75,7 +56,7 @@ void FilterByUniversity(int mode, ui numberOfStudents, vector<Student> &students
 	Print(mode, filtered, line);
 }
 
-
+//фильтр студентов по курсу
 void FilterByCourse(int mode, ui numberOfStudents, vector<Student>& students)
 {
 	vector<Student> filtered;
@@ -89,6 +70,7 @@ void FilterByCourse(int mode, ui numberOfStudents, vector<Student>& students)
 	Print(mode, filtered, line);
 }
 
+//фильтр студентов по группе
 void FilterByGroup(int mode, ui numberOfStudents, vector<Student>& students)
 {
 	vector<Student> filtered;
@@ -106,20 +88,19 @@ void FilterByGroup(int mode, ui numberOfStudents, vector<Student>& students)
 void Print(int mode, vector<Student>& filteredStudents, string line)
 {
 	fstream fout;
-	sort(filteredStudents.begin(), filteredStudents.end(), Comparator);
+	SortArray(filteredStudents);
 
 	if (mode == TopMenu::console) {
 		if (!filteredStudents.size()) {
 			cout << "There is no students by such category!\n\n";
 			return;
 		}
-		sort(filteredStudents.begin(), filteredStudents.end(), Comparator);
 		cout << line;
 		for (ui i = 0; i < filteredStudents.size(); i++) {
 			filteredStudents[i].ShowInformation(i + 1);
 		}
 
-		char ans = SaveResults(fout);
+		char ans = SaveResults(fout, "results");
 		if (ans == 'y') {
 			fout << line;
 			for (ui i = 0; i < filteredStudents.size(); i++) {

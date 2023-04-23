@@ -19,9 +19,13 @@ void InputOption(int option);
 
 void OptionsBottom();
 
+void Task();
+
 void IncorrectOption();
 
-char SaveResults(fstream& fout);
+char SaveResults(fstream& fout, string msg);
+
+void PrintConsoleData(fstream& fout, vector<Student>& students);
 
 string OpenFile(int option, fstream& file);
 
