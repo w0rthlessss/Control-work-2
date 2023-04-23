@@ -25,8 +25,10 @@ void SplitString(string s, string* ans)
 	}
 }
 
+//ввод данных с консоли
 void ConsoleInput(vector<Student>& students, ui& numberOfStudents)
 {
+	fstream fout;
 	string n = "", s = "", a = "", u = "", tmp="";
 	ui c = 0, g = 0;
 
@@ -43,15 +45,19 @@ void ConsoleInput(vector<Student>& students, ui& numberOfStudents)
 		u = GetString("Enter university of student #", i + 1);
 
 		tmp = "Enter course of student #" + to_string(i + 1) + ": ";
-		ui g = static_cast<ui>(GetInt(tmp));
+		g = static_cast<ui>(GetInt(tmp));
 
 		tmp = "Enter group number of student #" + to_string(i + 1) + ": ";
-		ui c = static_cast<ui>(GetInt(tmp));
+		c = static_cast<ui>(GetInt(tmp));
 		students[i].SetInformation(n, s, a, u, c, g);
 	}
-	//SortData(students);
+
+	if (SaveResults(fout, "data")=='y') {
+		PrintConsoleData(fout, students);
+	}
 }
 
+//ввод данных с файла
 bool FileInput(vector<Student>& students, fstream &fin, ui &numberOfStudents, string name)
 {
 	string args[arguments];
@@ -130,8 +136,7 @@ bool FileInput(vector<Student>& students, fstream &fin, ui &numberOfStudents, st
 	fin.close();
 	return true;
 
-	//сортировка массива
-	//SortData(students);
+
 }
 
 

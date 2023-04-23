@@ -3,7 +3,7 @@
 
 bool Comparator(Student x, Student y);
 
-void Sort(vector<Student>& students);
+void SortArray(vector<Student>& students);
 
 bool Comparison(string university, string chosenUniversity);
 
