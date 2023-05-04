@@ -11,6 +11,8 @@ void WorkWithConsole(vector<Student>& students, int& actionBottom);
 
 void WorkWithFile(vector<Student>& students, int& actionBottom);
 
+void PrintStudents(vector<Student>& students);
+
 void Fio();
 
 void OptionsTop();
