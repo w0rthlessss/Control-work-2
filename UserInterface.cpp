@@ -13,22 +13,23 @@ void WorkWithConsole(vector<Student>& students, int& actionBottom)
 	actionBottom = 1;
 
 	ConsoleInput(students, numberOfStudents);
+	PrintStudents(students);
 	while (actionBottom != BottomMenu::back) {
 		OptionsBottom();
 		actionBottom = GetInt(">>");
 		switch (actionBottom)
 		{
 		case BottomMenu::all:
-			Print(TopMenu::console, students, "All students we have data about:\n\n");
+			Print(students, "All students we have data about:\n\n");
 			break;
 		case BottomMenu::university:
-			FilterByUniversity(TopMenu::console, numberOfStudents, students);
+			FilterByUniversity(numberOfStudents, students);
 			break;
 		case BottomMenu::course:
-			FilterByCourse(TopMenu::console, numberOfStudents, students);
+			FilterByCourse(numberOfStudents, students);
 			break;
 		case BottomMenu::group:
-			FilterByGroup(TopMenu::console, numberOfStudents, students);
+			FilterByGroup(numberOfStudents, students);
 			break;
 		case BottomMenu::back:
 			system("cls");
@@ -52,7 +53,7 @@ void WorkWithFile(vector<Student>& students, int& actionBottom)
 		isCorrect = FileInput(students, docIn, numberOfStudents, inputName);
 		docIn.close();
 	} while (isCorrect == false);
-
+	PrintStudents(students);
 	while (actionBottom != BottomMenu::back) {
 		OptionsBottom();
 		actionBottom = GetInt(">>");
@@ -60,16 +61,16 @@ void WorkWithFile(vector<Student>& students, int& actionBottom)
 		switch (actionBottom)
 		{
 		case BottomMenu::all:
-			Print(TopMenu::file, students, "All students we have data about:\n\n");
+			Print(students, "All students we have data about:\n\n");
 			break;
 		case BottomMenu::university:
-			FilterByUniversity(TopMenu::file, numberOfStudents, students);
+			FilterByUniversity(numberOfStudents, students);
 			break;
 		case BottomMenu::course:
-			FilterByCourse(TopMenu::file, numberOfStudents, students);
+			FilterByCourse(numberOfStudents, students);
 			break;
 		case BottomMenu::group:
-			FilterByGroup(TopMenu::file, numberOfStudents, students);
+			FilterByGroup(numberOfStudents, students);
 			break;
 		case BottomMenu::back:
 			system("cls");
@@ -80,6 +81,16 @@ void WorkWithFile(vector<Student>& students, int& actionBottom)
 			IncorrectOption();
 			break;
 		}
+	}
+}
+
+void PrintStudents(vector<Student>& students)
+{
+	cout << "\nStudent list:\n";
+	for (int i = 0; i < static_cast<int>(students.size()); i++) {
+		cout << "#" << i + 1 << ": " << students[i].GetName() << ' ' << students[i].GetSurname() << ' '
+			<< students[i].GetAdress() << ' ' << students[i].GetUniversity() << ' ' <<
+			students[i].GetCourse() << ' ' << students[i].GetGroup() << endl;
 	}
 }
 
@@ -135,7 +146,7 @@ char SaveResults(fstream& fout, string msg)
 {
 	string name;
 
-	cout << "Do you want to save"<<msg<<"  in the file ? (y / n)\n\n";
+	cout << "Do you want to save "<<msg<<" in the file ? (y / n)\n\n";
 	char res = 'n';
 	do {
 		res = GetChar(">>");
@@ -150,11 +161,13 @@ char SaveResults(fstream& fout, string msg)
 	return res;
 }
 
+//записать в файл информацию введенную в консоль
 void PrintConsoleData(fstream& fout, vector<Student>& students)
 {
 	for (ui i = 0; i < students.size(); i++) {
 		fout << students[i].GetName() << ' ' <<
 			students[i].GetSurname() << ' ' <<
+			students[i].GetAdress() << ' ' <<
 			students[i].GetUniversity() << ' ' <<
 			students[i].GetCourse() << ' ' <<
 			students[i].GetGroup() << endl;
@@ -179,9 +192,9 @@ string OpenFile(int option, fstream& file)
 				cout << "\nAdress contains forbidden value. Try another file path!\n";
 				continue;
 			}
-
+			return name;
 		} while (true);
-		return name;
+		
 
 	}
 	else {
@@ -195,8 +208,9 @@ string OpenFile(int option, fstream& file)
 				continue;
 			}
 
+			return name;
 		} while (true);
-		return name;
+		
 	}
 }
 

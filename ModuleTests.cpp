@@ -20,15 +20,15 @@ bool Check(vector<Student>& testArray, vector<Student>& testArrayFile, int lim)
 bool Test1()
 {
 	//проверка ввода данных с файла
-	cout << "\tTEST#1\n\tTesting file input...\n\n";
+	//cout << "\tTEST#1\n\tTesting file input...\n\n";
 	
 	fstream fin;
 	ui numberOfStudents = 0;
 	const string fileName = "test_info.txt";
 	fin.open(fileName, ios::in);
 
-	if (!fin) {
-		cout << "FAILURE!\nError opening file!\n\n";
+	if (!fin.is_open()) {
+		cout << "Test#1: FAILURE!\nMissing test file \"" << fileName<<"\"!\n\n";
 		return false;
 	}
 
@@ -39,12 +39,12 @@ bool Test1()
 	test_array[1].SetInformation("Dmitriy", "Kaplunov", "Krasnoyarsk", "SIBGU", 2, 576);
 
 	if (!FileInput(test_array_file, fin, numberOfStudents, fileName)) {
-		cout << "FAILURE!\nValues from inside the program and values from the test file do not match!\n\n";
+		cout << "Test#1: FAILURE!\nValues from inside the program and values from the test file do not match!\n\n";
 		return false;
 	}
 
 	if (!Check(test_array, test_array_file, ValuesForModuleTests::first)) {
-		cout << "FAILURE!\nValues from inside the program and values from the test file do not match!\n\n";
+		cout << "Test#1: FAILURE!\nValues from inside the program and values from the test file do not match!\n\n";
 		return false;
 	}
 	return true;
@@ -54,15 +54,15 @@ bool Test1()
 bool Test2()
 {
 	//фильтр по университету
-	cout << "\tTEST#2\n\tTesting unviersity filter function...\n\n";
+	//cout << "\tTEST#2\n\tTesting unviersity filter function...\n\n";
 
 	fstream fin;
 	const string fileName = "test_info.txt";
 	fin.open(fileName, ios::in);
 	string res = "", resFile = "";
 
-	if (!fin) {
-		cout << "FAILURE!\nError opening file!\n\n";
+	if (!fin.is_open()) {
+		cout << "Test#2: FAILURE!\nMissing test file \"" << fileName << "\"!\n\n";
 		return false;
 	}
 
@@ -78,7 +78,7 @@ bool Test2()
 	vector<Student> test_array_file;
 
 	if (!FileInput(test_array_file, fin, numberOfStudents, fileName)) {
-		cout << "FAILURE!\nValues from inside the program and values from the test file do not match!\n\n";
+		cout << "Test #2: FAILURE!\nValues from inside the program and values from the test file do not match!\n\n";
 		return false;
 	}
 
@@ -89,7 +89,7 @@ bool Test2()
 	}
 
 	if (res != resFile) {
-		cout << "FAILURE!\nIncorrect answer\n\n";
+		cout << "Test#2: FAILURE!\nIncorrect answer\n\n";
 		return false;
 	}
 	return true;
@@ -98,15 +98,15 @@ bool Test2()
 bool Test3()
 {
 	//фильтр по группе
-	cout << "\tTEST#3\n\tTesting group filter function...\n\n";
+	//cout << "\tTEST#3\n\tTesting group filter function...\n\n";
 
 	fstream fin;
 	const string fileName = "test_info.txt";
 	fin.open(fileName, ios::in);
 	ui res = 0, resFile = 0;
 
-	if (!fin) {
-		cout << "FAILURE!\nError opening file!\n\n";
+	if (!fin.is_open()) {
+		cout << "Test#3: FAILURE!\nMissing test file \"" << fileName << "\"!\n\n";
 		return false;
 	}
 
@@ -120,7 +120,7 @@ bool Test3()
 	vector<Student>test_array_file;
 
 	if (!FileInput(test_array_file, fin, numberOfStudents, fileName)) {
-		cout << "FAILURE!\nValues from inside the program and values from the test file do not match!\n\n";
+		cout << "Test#3: FAILURE!\nValues from inside the program and values from the test file do not match!\n\n";
 		return false;
 	}
 
@@ -133,7 +133,7 @@ bool Test3()
 	}
 
 	if (resFile != res) {
-		cout << "FAILURE!\nIncorrect answer\n\n";
+		cout << "Test#3: FAILURE!\nIncorrect answer\n\n";
 		return false;
 	}
 
@@ -143,14 +143,14 @@ bool Test3()
 bool Test4()
 {
 	//корректность счёта строк в файле
-	cout << "\tTEST#4\n\tTesting correctness of counting lines in a file...\n\n";
+	//cout << "\tTEST#4\n\tTesting correctness of counting lines in a file...\n\n";
 
 	fstream fin;
 	const string fileName = "test_info.txt";
 	fin.open(fileName, ios::in);
 
 	if (!fin) {
-		cout << "FAILURE!\nError opening file!\n\n";
+		cout << "Test#4: FAILURE!\nMissing test file \"" << fileName << "\"!\n\n";
 		return false;
 	}
 
@@ -159,12 +159,12 @@ bool Test4()
 	vector<Student> test_array(ValuesForModuleTests::fourth);
 
 	if (!FileInput(test_array, fin, numberOfStudents, fileName)) {
-		cout << "FAILURE!\nValues from inside the program and values from the test file do not match!\n\n";
+		cout << "Test#4: FAILURE!\nValues from inside the program and values from the test file do not match!\n\n";
 		return false;
 	}
 
 	if (numberOfStudents != ValuesForModuleTests::fourth) {
-		cout << "FAILURE!\nIncorrect amount of data in the file!\n\n";
+		cout << "Test#4: FAILURE!\nIncorrect amount of data in the file!\n\n";
 		return false;
 	}
 
@@ -172,7 +172,7 @@ bool Test4()
 }
 bool Test5(){
 	//корректность работы ввода с консоли
-	cout << "\tTEST#5\n\tTesting console input...\n\n";
+	//cout << "\tTEST#5\n\tTesting console input...\n\n";
 	{
 		istringstream test("576\n\n");
 		streambuf* cinbuf = cin.rdbuf(test.rdbuf());
@@ -192,10 +192,7 @@ bool Test5(){
 void LaunchAllTests()
 {
 	bool tests[5] = { Test1(), Test2(), Test3(), Test4(), Test5() };
-	for (ui i = 0; i < 5; i++) {
-		if (!tests[i]) cout << "TEST#" << i + 1 << "\tFAILURE!\n\n";
-	}
+
 
 	if (tests[0] && tests[1] && tests[2] && tests[3] && tests[4]) cout << "All tests SUCCEDED!\n\n";
-	else cout << "Some of the tests failed\n\n";
 }
